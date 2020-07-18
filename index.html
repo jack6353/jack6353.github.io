@@ -1,1 +1,38 @@
-<h1> Hello, World! </h1>
+<html>
+<script src='https://d3js.org/d3.v5.min.js'></script>
+<style> rect {fill: lightblue; stroke: black; }</style>
+<body>
+  <svg width=300 height=300>
+  </svg>
+  <script>
+    data = [4, 13, 24, 36, 38, 42];
+    margin = 50;
+    var svg = d3.select("svg")
+    var xscale = d3.scaleBand()
+    .domain([0,1,2,3,4,5])
+    .range([0,svg.attr("width")-2*margin]);
+
+    var yscale = d3.scaleLinear()
+    .domain([0, d3.max(data)])
+    .range([svg.attr("height")-2*margin, 0]);
+
+    svg.append("g").attr("transform", "translate("+margin+","+margin+")").selectAll('rect')
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('x',function(d,i) {return xscale(i);})
+    .attr('y',function(d,i) {return yscale(d);})
+    .attr('width',33.3333)
+    .attr('height',function(d,i) {return 200-yscale(d);})
+
+    svg.append("g")
+    .attr("transform", "translate("+margin+","+margin+")")
+    .call(d3.axisLeft(yscale));
+
+    svg.append("g")
+    .attr("transform", "translate("+margin+","+(200+margin)+")")
+    .call(d3.axisBottom(xscale));
+
+  </script>
+</body>
+</html>
