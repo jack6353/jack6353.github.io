@@ -52,9 +52,9 @@
 
       // format the data
       data.forEach(function(d) {
-          d.date = parseTime(d.Date);
-          d.close = +d.Cellphone;
-          d.open = +d.Smartphone;
+          d.date = parseTime(d.date);
+          d.close = +d.cellphone;
+          d.open = +d.smartphone;
       });
 
       // Scale the range of the data
