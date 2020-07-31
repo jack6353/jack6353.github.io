@@ -1,6 +1,105 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Chicle|Dekko|Englebert|Indie+Flower|Rhodium+Libre|Sail|Yatra+One" rel="stylesheet">
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 text-center">
+      <h1 class="title-font">
+        Phone Ownership & Usage
+      </h1>
+    </div>
+  </div>
+  <div class="col-xs-12 well text-center">
+    <div id="message" class="message-font message">The quotes will appear here.</div>
+  </div>
+  <div class="text-center">
+    <p>Click this button to share at Twitter!!!</p>
+    <button id="tweetButton" class="btn"><a id="tweet-quote" title="Tweet this quote!" target="_blank">
+      <i class="fa fa-twitter" style="font-size:20px;"></i> Twitter</a></button>
+  </div>
+  <div class="col-xs-12 text-center">
+    <button id="getMessage" class="button-font">
+      Press to flip page!
+    </button>
+  </div>
+</div>
+</div>
+
 <style> /* set the CSS */
+
+.title-font {
+  font-family: Dekko;
+  font-size: 50px;
+  margin: 50px;
+}
+
+.message-font {
+  margin: 0 50px 0 50px;
+  font-family: Rhodium Libre;
+  font-size: 20px;
+  padding: 20px;
+  background-color: #CCC;
+  
+}
+
+.button-font {
+  font-family: Chicle;
+  font-size: 25px;
+  margin: 50px;
+}
+
+.button-font:hover {
+  background-color: #FCC;
+  border-color: #F00;
+  border-width: 1px;
+  }
+
+.quote-font {
+  font-family: Rhodium Libre;
+  font-size: 20px;
+  text-align: left;
+}
+
+.author-font {
+  font-family: Dekko;
+  font-size: 30px;
+  text-align: right;
+}
+
+.new-quote {
+  animation-duration: 3s;
+  animation-name: fadeIn;
+}
+
+@keyframes fadeIn {
+   0% {opacity: 0;}
+   100% {opacity: 1;}
+}
+
+#tweet-quote {
+  font-size:20px;
+  color: white;
+}
+
+#tweetButton:hover {
+  background-color: #33E;
+  border-color: #33E;
+}
+
+p {
+  font-size: 15px;
+  font-family: Yatra One; 
+}
+
+#tweetButton {
+  background-color: #77F;
+  border-radius: 10px;
+  border-color: blue;
+  border-width: 3px
+}
 
 .line {
   fill: none;
@@ -14,6 +113,12 @@
   <!-- load the d3.js library -->     
   <script src="https://d3js.org/d3.v5.min.js"></script>
   <script>
+
+$(document).ready(function() {
+  var tweetQuote;
+  $("#tweetButton").on("click", function() {
+    $("a").attr("href", "https://twitter.com/intent/tweet?text=" + tweetQuote);
+  });
 
 // set the dimensions and margins of the graph
 var margin = {top: 20, right: 20, bottom: 30, left: 50},
@@ -83,6 +188,12 @@ d3.csv("https://jack6353.github.io/ownershipovertime.csv").then(function(data) {
   // Add the Y Axis
   svg.append("g")
   .call(d3.axisLeft(y));
+
+  svg.selectAll(".dot").data(data).enter().append("circle")
+  .attr("r",3)
+  .attr("cx",function(d,i){ return x(d.Date);})
+  .attr("cy",function(d,i){ return d.cell(i);})
+
 
 });
 
