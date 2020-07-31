@@ -37,20 +37,6 @@
 <script src="https://d3js.org/d3.v5.min.js"></script>
 <script>
 
-
-var parseTime = d3.timeParse("%m/%d/%y");
-
-const data = await d3.csv("https://jack6353.github.io/ownershipovertime.csv", function(error, data) {
-  if (error) throw error;
-
-  // format the data
-  data.forEach(function(d) {
-      d.date = parseTime(d.date);
-      d.cell = +d.cellphone;
-      d.smart = +d.smartphone;
-  });
-};
-
 // 2. Use the margin convention practice 
 var margin = {top: 50, right: 50, bottom: 50, left: 50}
   , width = window.innerWidth - margin.left - margin.right // Use the window's width 
