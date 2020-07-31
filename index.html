@@ -32,7 +32,7 @@
       yScale = d3.scaleLinear().range([height, 0]).domain([0, d3.max(data, function(d) { return Math.max(d.cell, d.smart); })])
 
       // define the 1st line
-      var valueline = d3.line()
+      var valueline1 = d3.line()
           .x(function(d) { return x(d.date); })
           .y(function(d) { return y(d.cell); });
 
