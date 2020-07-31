@@ -60,7 +60,7 @@ path.line-2 {
 //------------------------1. PREPARATION------------------------//
 //-----------------------------SVG------------------------------// 
 const width = 960;
-const height = 500;
+const height = 400;
 const margin = 5;
 const padding = 5;
 const adj = 30;
@@ -78,7 +78,7 @@ const svg = d3.select("div#container").append("svg")
 
 //-----------------------------DATA-----------------------------//
 const timeConv = d3.timeParse("%d-%b-%Y");
-const dataset = d3.csv("data.csv");
+const dataset = d3.csv("ownershipovertime.csv");
 dataset.then(function(data) {
     var slices = data.columns.slice(1).map(function(id) {
         return {
@@ -99,7 +99,7 @@ xScale.domain(d3.extent(data, function(d){
     return timeConv(d.date)}));
 yScale.domain([(0), d3.max(slices, function(c) {
     return d3.max(c.values, function(d) {
-        return d.measurement + 4; });
+        return d.measurement + 1; });
         })
     ]);
 
@@ -137,7 +137,7 @@ svg.append("g")
     .attr("dy", ".75em")
     .attr("y", 6)
     .style("text-anchor", "end")
-    .text("Frequency");
+    .text("Ownership Percentage");
 
 //----------------------------LINES-----------------------------//
 const lines = svg.selectAll("lines")
@@ -159,7 +159,7 @@ const lines = svg.selectAll("lines")
             return "translate(" + (xScale(d.value.date) + 10)  
             + "," + (yScale(d.value.measurement) + 5 ) + ")"; })
     .attr("x", 5)
-    .text(function(d) { return ("Serie ") + d.id; });
+    .text(function(d) { return d.id; });
 
 });
 </script>
