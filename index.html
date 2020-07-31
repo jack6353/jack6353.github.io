@@ -59,13 +59,13 @@
 
       // 9. Append the path, bind the data, and call the line generator 
       svg.append("path")
-          .data([data])
+          .data(data.cell)
           .attr("class", "line")
           .style("stroke", "blue")
           .attr("d", valueline1);
 
       svg.append("path")
-          .data([data])
+          .data(data.smart)
           .attr("class", "line")
           .style("stroke", "red")
           .attr("d", valueline2);
