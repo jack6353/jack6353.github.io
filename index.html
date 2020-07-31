@@ -85,11 +85,6 @@ d3.csv("https://jack6353.github.io/ownershipovertime.csv").then(function(data) {
   svg.append("g")
   .call(d3.axisLeft(y));
 
-  svg.selectAll(".dot").data(data).enter().append("circle")
-  .attr("r",3)
-  .attr("cx",function(d,i){ return x(d.Date);})
-  .attr("cy",function(d,i){ return d.cell(i);})
-
 
 });
 
