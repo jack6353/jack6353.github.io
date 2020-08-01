@@ -84,7 +84,8 @@ d3.csv("https://jack6353.github.io/ownershipovertime.csv").then(function(data) {
   // Add the Y Axis
   svg.append("g")
   .call(d3.axisLeft(y));
-
+  
+  svg.attr("align","center");
 
 });
 
