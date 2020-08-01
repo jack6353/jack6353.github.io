@@ -10,6 +10,7 @@
 }
 
 </style>
+<div id="chart" align="center"></div>
 <body>
 
   <!-- load the d3.js library -->     
@@ -41,7 +42,7 @@ var valueline2 = d3.line()
 // append the svg obgect to the body of the page
 // appends a 'group' element to 'svg'
 // moves the 'group' element to the top left margin
-var svg = d3.select("body").append("svg")
+var svg = d3.select("#chart").append("svg")
 .attr("width", width + margin.left + margin.right)
 .attr("height", height + margin.top + margin.bottom)
 .append("g")
@@ -84,8 +85,6 @@ d3.csv("https://jack6353.github.io/ownershipovertime.csv").then(function(data) {
   // Add the Y Axis
   svg.append("g")
   .call(d3.axisLeft(y));
-  
-  svg.attr("align","center");
 
 });
 
