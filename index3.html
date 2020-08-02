@@ -25,7 +25,7 @@
 }
 
 .message-font {
-  margin: 30px 50px 50px 50px;
+  margin: 30px 50px 5px 50px;
   font-family: Rhodium Libre;
   font-size: 20px;
   padding: 20px;
@@ -45,11 +45,6 @@
   background-color: #CCF;
   border-color: #00F;
   
-}
-
-@keyframes fadeIn {
- 0% {opacity: 0;}
- 100% {opacity: 1;}
 }
 
 p {
@@ -81,31 +76,21 @@ svg {
   stroke-width: 0;
 }
 
-body {
-  font: 10px sans-serif;
-}
 select {
   display: block;
-}
-.bar {
-  fill: purple;
-  opacity: 0.8;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
 }
 
 .bar {
   fill: green;
+  opacity: 0.6;
+  stroke: black;
+  stroke-width: 1px;
 }
 
 #opts {
-  margin: 20px 50% 0px 50%;
+  margin-left: 50px;
   font: 20px Dekko;
+  text-align: center;
 }
 
 .option {
@@ -115,11 +100,9 @@ select {
 #menu {
   font-size: 30px;
   font-family: Dekko;
-  margin-left: 40%;
-  margin-right: 40%;
+  margin-left: 50px;
   color: blue;
-  padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 </style>
@@ -133,7 +116,7 @@ select {
   </div>
   <div id="message" class="message-font message">A substantial majority of Americans are cellphone owners across a wide range of demographic groups. By contrast, smartphone ownership exhibits greater variation based on age, household income and educational attainment.</div> 
   
-  <g id="menu">Make your selection here ↓
+  <g id="menu"> ↓ Make your selection here
     <select id = "opts">
       <option value="total" selected="selected">Overall</option>
       <option value="age18_29">Age 18-29</option> 
@@ -237,10 +220,44 @@ select {
                 .enter()
                 .append("rect")
                 .attr("class","bar")
+                .attr("rx", 6)
+                .attr("ry", 6)
                 .attr("x", function(d,i) { return x(d.category); })
                 .attr("width", x.bandwidth())
-                .attr("y", function(d,i) { return y(d.total); })
-                .attr("height", function(d,i) { return height - y(d.total); });
+                .attr("y", function(d,i) { return height; })
+                .attr("height", 0)
+                .transition()
+                .duration(1500)
+                .delay((d, i) => { return i * 150; })
+                .attr("y",  d => { return y(d.total); })
+                .attr("height",  d => { return height - y(d.total); });
+
+
+                svg.selectAll(".text")
+                 .data(data)
+                 .enter()
+                 .append("text")
+                 .text(function(d) {
+                    return d.total*100+'%';
+                 })
+
+                 .attr("x", function(d, i) {
+                    return x(d.category) + x.bandwidth() / 2 - 15;
+                 })
+                .attr("y", function(d,i) { return height; })
+                .attr("height", 0)
+                .style("font","20px Dekko")
+                .style("fill","blue")
+                .transition()
+                .duration(2000)
+                .delay((d, i) => { return i * 150; })
+                .attr("y",  function(d) {
+                            if((height - y(d.total)) <= 40) {
+                                return y(d.total) - 10;
+                            }else{
+                                return y(d.total) + 25;
+              }
+                        })
 
               function updateBar(selected) {
                 d3.selectAll("svg").remove();
@@ -301,10 +318,43 @@ select {
                 .enter()
                 .append("rect")
                 .attr("class","bar")
+                .attr("rx", 6)
+                .attr("ry", 6)
                 .attr("x", function(d,i) { return x(d.category); })
                 .attr("width", x.bandwidth())
-                .attr("y", function(d,i) { return y(d[selected]); })
-                .attr("height", function(d,i) { return height - y(d[selected]); });
+                .attr("y", function(d,i) { return height; })
+                .attr("height", 0)
+                .transition()
+                .duration(1500)
+                .delay((d, i) => { return i * 150; })
+                .attr("y",  d => { return y(d[selected]); })
+                .attr("height",  d => { return height - y(d[selected]); });
+
+                svg.selectAll(".text")
+                 .data(data)
+                 .enter()
+                 .append("text")
+                 .text(function(d) {
+                    return d[selected]*100+'%';
+                 })
+
+                 .attr("x", function(d, i) {
+                    return x(d.category) + x.bandwidth() / 2 - 15;
+                 })
+                .attr("y", function(d,i) { return height; })
+                .attr("height", 0)
+                .style("font","20px Dekko")
+                .style("fill","blue")
+                .transition()
+                .duration(2000)
+                .delay((d, i) => { return i * 150; })
+                .attr("y",  function(d) {
+                            if((height - y(d[selected])) <= 40) {
+                                return y(d[selected]) - 10;
+                            }else{
+                                return y(d[selected]) + 25;
+              }
+                        })
                 
               };
 
