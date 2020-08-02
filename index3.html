@@ -117,12 +117,24 @@ select {
             var fileName = "https://jack6353.github.io/page3.csv";
             var phonetype = ["Any Phones", "Smartphone", "Cellphone"];
 
-            d3.csv(fileName, function(error, data) {
+            d3.csv("https://jack6353.github.io/page3.csv").then(function(data) {
               data.forEach(function(d) {
-                d.cat = +d.year;
-                d.ac = +d.any_cells;
-                d.sp = +d.smartphone;
-                d.cp = +d.cellphone;
+                d.cat = +d.category;
+                d.total = +d.total;
+                d.a18 = +d.age18_29;
+                d.a30 = +d.age30_49;
+                d.a50 = +d.age50_64;
+                d.a65 = +d.age65;
+                d.lhs = +d.lesshighSchool;
+                d.hs = +d.highSchool;
+                d.co = +d.college;
+                d.i3 = +d.income3;
+                d.i5 = +d.income5;
+                d.i75 = +d.income75;
+                d.io75 = +d.incomeover75;
+                d.ur = +d.urband;
+                d.sub = +d.suburban;
+                d.rural = +d.rural;
               });
             });
 
@@ -132,7 +144,7 @@ select {
             height = 450 - margin.top  - margin.bottom;
 
             // Make x scale
-            var x = d3.scaleBand().domain(phonetype).range([0,width]);
+            var x = d3.scaleBand().domain([d.cat]).range([0,width]).padding(0.1);
 
             // Make y scale, the domain will be defined on bar update
             var y = d3.scaleLinear().domain([0,1]).range([height, 0]);
@@ -164,41 +176,28 @@ select {
             .attr("dy", ".95em")
             .style("font", "20px Englebert")
             .text("Ownership Percentage");
-
-            var updateBars = function(data) {
-
-                var bars = svg.selectAll(".bar").data(data)
-                .enter()
-                .append("rect")
-                .attr("class", "bar")
-                .attr("x", function(d,i) { return x( phonetype[i] ); })
-                .attr("width", x.rangeBand())
-                .attr("y", function(d,i) { return y(d); })
-                .attr("height", function(d,i) { return height - y(d); });
-
-                // Update old ones, already have x / width from before
-                bars
-                .transition().duration(250)
-                .attr("y", function(d,i) { return y(d); })
-                .attr("height", function(d,i) { return height - y(d); });
-
-                // Remove old ones
-                bars.exit().remove();
-              };
+            
+            svg.append("g").selectAll(".bar").data(data)
+            .enter()
+            .append("rect")
+            .attr("x", function(d,i) { return x(d.cat); })
+            .attr("width", 20)
+            .attr("y", function(d,i) { return y(d.total); })
+            .attr("height", function(d,i) { return height - y(d.total); });
 
 
-            </script>
+          </script>
 
-            <div class="text-center">
-              <p>Thanks for your attention!</p>
-              <button id="getMessage" class="button-font">
-                Click Here to Cycle back to First Scene!
-              </button>
-            </div>
-            <script type="text/javascript">
-              document.getElementById("getMessage").onclick = function () {
-                location.href = "index.html";
-              };
-            </script>
-          </body>
-          </html>
+          <div class="text-center">
+            <p>Thanks for your attention!</p>
+            <button id="getMessage" class="button-font">
+              Click Here to Cycle back to First Scene!
+            </button>
+          </div>
+          <script type="text/javascript">
+            document.getElementById("getMessage").onclick = function () {
+              location.href = "index.html";
+            };
+          </script>
+        </body>
+        </html>
