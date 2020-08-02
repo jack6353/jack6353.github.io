@@ -291,7 +291,17 @@ svg {
     .attr("opacity","0.5")
     .attr("stroke-width","2");
 
-    svg.append("text").attr("x", 20).attr("y", 153).text("Regression due to increase of Tablet users").style("font", "20px Englebert").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 20).attr("y", 153).text("Regression due to increase of Tablet users").style("font", "20px Englebert").attr("alignment-baseline","middle");
+    svg.append("text").attr("x", 520).attr("y", 233).text("Reverse trend of Tablet vs E-readers").style("font", "20px Englebert").attr("alignment-baseline","middle");
+
+    svg.append("line")
+    .attr("x1","510")
+    .attr("y1","243")
+    .attr("x2","815")
+    .attr("y2","243")
+    .attr("stroke","black")
+    .attr("opacity","0.5")
+    .attr("stroke-width","2");
 
 });
 
