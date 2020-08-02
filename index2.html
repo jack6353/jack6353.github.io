@@ -152,12 +152,13 @@ svg {
     svg.append("path")
     .data([data])
     .attr("class", "line")
+    .style("stroke", "#199")
     .attr("d", valueline);
 
     svg.append("path")
     .data([data])
     .attr("class", "line")
-    .style("stroke", "green")
+    .style("stroke", "771")
     .attr("d", valueline2);
 
     svg.append("path")
@@ -197,9 +198,9 @@ svg {
     .text("Ownership Percentage");
 
     // Insert legends
-    svg.append("circle").attr("cx",700).attr("cy",20).attr("r", 8).style("fill", "steelblue")
-    svg.append("circle").attr("cx",700).attr("cy",40).attr("r", 8).style("fill", "green")
-    svg.append("circle").attr("cx",700).attr("cy",60).attr("r", 8).style("fill", "purple")
+    svg.append("circle").attr("cx",700).attr("cy",20).attr("r", 6).style("fill", "#199")
+    svg.append("circle").attr("cx",700).attr("cy",40).attr("r", 6).style("fill", "#771")
+    svg.append("circle").attr("cx",700).attr("cy",60).attr("r", 6).style("fill", "purple")
     svg.append("text").attr("x", 730).attr("y", 20).text("E-reader").style("font", "20px Englebert").attr("alignment-baseline","middle")
     svg.append("text").attr("x", 730).attr("y", 40).text("Tablet").style("font", "20px Englebert").attr("alignment-baseline","middle")
     svg.append("text").attr("x", 730).attr("y", 60).text("Desktop & Laptop").style("font", "20px Englebert").attr("alignment-baseline","middle")
@@ -212,7 +213,7 @@ svg {
       .attr("r",5)
       .attr("cx", function(d) { return x(d.date); })
       .attr("cy", function(d) { return y(d.er); })
-      .attr("fill", "steelblue")
+      .attr("fill", "#199")
       .style("opacity", 0.6)
       .style("stroke", "black");
 
@@ -223,7 +224,7 @@ svg {
       .attr("r",5)
       .attr("cx", function(d) { return x(d.date); })
       .attr("cy", function(d) { return y(d.tab); })
-      .attr("fill", "green")
+      .attr("fill", "#771")
       .style("opacity", 0.6)
       .style("stroke", "black");
 
