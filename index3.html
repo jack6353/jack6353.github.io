@@ -248,7 +248,7 @@ select {
                  .enter()
                  .append("text")
                  .text(function(d) {
-                    return d.total*100+'%';
+                    return Math.floor(d.total*100)+'%';
                  })
 
                  .attr("x", function(d, i) {
@@ -345,7 +345,7 @@ select {
                  .enter()
                  .append("text")
                  .text(function(d) {
-                    return d[selected]*100+'%';
+                    return Math.floor(d[selected]*100)+'%';
                  })
 
                  .attr("x", function(d, i) {
