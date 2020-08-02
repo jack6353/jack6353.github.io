@@ -19,7 +19,7 @@
 }
 
 .title-font {
-  font-family: Dekko;
+  font-family: Rhodium Libre;
   font-size: 50px;
   margin: 10px;
 }
@@ -35,25 +35,26 @@
 }
 
 .button-font {
-  font-family: Chicle;
-  font-size: 25px;
+  font-family: Rhodium Libre;
+  font-size: 20px;
   margin: 0px;
   text-align: center;
+  background-color: #EEE;
 }
 
 .button-font:hover {
-  background-color: #CCF;
+  background-color: #CFF;
   border-color: #00F;
   
 }
 
 p {
   font-size: 30px;
-  font-family: Dekko;
   background-color: #CFC;
   margin-left: 10px;
   margin-right: 10px;
-  color: blue
+  color: blue;
+  font-family: Rhodium Libre;
 }
 
 .text-center {
@@ -81,8 +82,8 @@ select {
 }
 
 .bar {
-  fill: green;
-  opacity: 0.6;
+  fill: skyblue;
+  opacity: 1;
   stroke: black;
   stroke-width: 1px;
 }
@@ -90,7 +91,6 @@ select {
 #opts {
   margin-left: 50px;
   font: 20px Dekko;
-  text-align: center;
 }
 
 .option {
@@ -164,7 +164,7 @@ select {
               });
 
                 var margin = { top: 30, right: 50, bottom: 30, left: 50 },
-                width  = 750 - margin.left - margin.right,
+                width  = 650 - margin.left - margin.right,
                 height = 350 - margin.top  - margin.bottom;
 
                 // Make x scale
@@ -242,11 +242,11 @@ select {
                  })
 
                  .attr("x", function(d, i) {
-                    return x(d.category) + x.bandwidth() / 2 - 15;
+                    return x(d.category) + x.bandwidth() / 2 - 18;
                  })
                 .attr("y", function(d,i) { return height; })
                 .attr("height", 0)
-                .style("font","20px Dekko")
+                .style("font","20px Rhodium Libre")
                 .style("fill","blue")
                 .transition()
                 .duration(2000)
@@ -255,14 +255,14 @@ select {
                             if((height - y(d.total)) <= 40) {
                                 return y(d.total) - 10;
                             }else{
-                                return y(d.total) + 25;
-              }
+                                return y(d.total) + (height-y(d.total))/2 + 10;
+                            }
                         })
 
               function updateBar(selected) {
                 d3.selectAll("svg").remove();
                 var margin = { top: 30, right: 50, bottom: 30, left: 50 },
-                width  = 750 - margin.left - margin.right,
+                width  = 650 - margin.left - margin.right,
                 height = 350 - margin.top  - margin.bottom;
 
                 // Make x scale
@@ -339,11 +339,11 @@ select {
                  })
 
                  .attr("x", function(d, i) {
-                    return x(d.category) + x.bandwidth() / 2 - 15;
+                    return x(d.category) + x.bandwidth() / 2 - 18;
                  })
                 .attr("y", function(d,i) { return height; })
                 .attr("height", 0)
-                .style("font","20px Dekko")
+                .style("font","20px Rhodium Libre")
                 .style("fill","blue")
                 .transition()
                 .duration(2000)
@@ -352,8 +352,8 @@ select {
                             if((height - y(d[selected])) <= 40) {
                                 return y(d[selected]) - 10;
                             }else{
-                                return y(d[selected]) + 25;
-              }
+                                return y(d[selected]) + (height-y(d[selected]))/2 + 10;
+                            }
                         })
                 
               };

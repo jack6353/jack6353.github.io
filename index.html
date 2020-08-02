@@ -19,7 +19,7 @@
 }
 
 .title-font {
-  font-family: Dekko;
+  font-family: Rhodium Libre;
   font-size: 50px;
   margin: 10px;
 }
@@ -35,14 +35,15 @@
 }
 
 .button-font {
-  font-family: Chicle;
-  font-size: 25px;
+  font-family: Rhodium Libre;
+  font-size: 20px;
   margin: 0px;
   text-align: center;
+  background-color: #EEE;
 }
 
 .button-font:hover {
-  background-color: #CCF;
+  background-color: #CFF;
   border-color: #00F;
   
 }
@@ -54,11 +55,11 @@
 
 p {
   font-size: 30px;
-  font-family: Dekko;
   background-color: #CFC;
   margin-left: 10px;
   margin-right: 10px;
-  color: blue
+  color: blue;
+  font-family: Rhodium Libre;
 }
 
 .text-center {
@@ -87,7 +88,7 @@ svg {
 <body>
   <div class="header-text">
     <h1 class="title-font">
-      Mobile Facts in USA - Mobile Phone Ownership
+      Mobile Facts in USA - Mobile Device Ownership
     </h1>
   </div>
   <div id="message" class="message-font message">The vast majority of Americans – 97% – now own a cellphone of some kind. The share of Americans that own smartphones is now 85%, up from just 3% in Pew Research Center’s first survey of smartphone ownership conducted in 2003.</div>
@@ -185,10 +186,10 @@ svg {
     .style("font", "20px Englebert")
     .text("Ownership Percentage");
 
-    svg.append("circle").attr("cx",700).attr("cy",230).attr("r", 8).style("fill", "steelblue")
-    svg.append("circle").attr("cx",700).attr("cy",260).attr("r", 8).style("fill", "green")
-    svg.append("text").attr("x", 730).attr("y", 230).text("All Mobile Phone Users").style("font", "20px Englebert").attr("alignment-baseline","middle")
-    svg.append("text").attr("x", 730).attr("y", 260).text("Smartphone Users").style("font", "20px Englebert").attr("alignment-baseline","middle")
+    svg.append("circle").attr("cx",700).attr("cy",170).attr("r", 8).style("fill", "steelblue")
+    svg.append("circle").attr("cx",700).attr("cy",200).attr("r", 8).style("fill", "green")
+    svg.append("text").attr("x", 730).attr("y", 170).text("All Mobile Phone Users").style("font", "20px Englebert").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 730).attr("y", 200).text("Smartphone Users").style("font", "20px Englebert").attr("alignment-baseline","middle")
 
     svg.selectAll("dot")
       .data(data)
@@ -236,29 +237,47 @@ svg {
               .tickSize(-width)
               .tickFormat(""));
     svg.append("line")
-    .attr("x1","187")
-    .attr("y1","282")
-    .attr("x2","230")
+    .attr("x1","307")
+    .attr("y1","243")
+    .attr("x2","280")
+    .attr("y2","223")
+    .attr("stroke","green")
+    .attr("opacity","0.5")
+    .attr("stroke-width","2");
+
+    svg.append("line")
+    .attr("x1","280")
+    .attr("y1","223")
+    .attr("x2","25")
     .attr("y2","223")
     .attr("stroke","green")
     .attr("opacity","0.5")
     .attr("stroke-width","2");
 
     svg.append("circle")
-    .attr("cx","167")
-    .attr("cy","303")
-    .attr("r","30")
+    .attr("cx","337")
+    .attr("cy","283")
+    .attr("r","50")
     .attr("fill","green")
     .attr("opacity","0.3")
     .attr("stroke","green")
     .attr("stroke-width","2");
 
-    svg.append("text").attr("x", 205).attr("y", 213).text("Best Selling Apple iPhone").style("font", "20px Englebert").attr("alignment-baseline","middle");
+    svg.append("text").attr("x", 35).attr("y", 209).text("Apple iPhone First Appearance").style("font", "20px Englebert").attr("alignment-baseline","middle");
 
     svg.append("line")
     .attr("x1","367")
     .attr("y1","65")
     .attr("x2","397")
+    .attr("y2","95")
+    .attr("stroke","steelblue")
+    .attr("opacity","0.5")
+    .attr("stroke-width","2");
+
+    svg.append("line")
+    .attr("x1","397")
+    .attr("y1","95")
+    .attr("x2","657")
     .attr("y2","95")
     .attr("stroke","steelblue")
     .attr("opacity","0.5")
@@ -273,7 +292,7 @@ svg {
     .attr("stroke","steelblue")
     .attr("stroke-width","2");
 
-    svg.append("text").attr("x", 407).attr("y", 95).text("Impact of Economic Regression").style("font", "20px Englebert").attr("alignment-baseline","middle");
+    svg.append("text").attr("x", 407).attr("y", 83).text("Impact of Economic Regression").style("font", "20px Englebert").attr("alignment-baseline","middle");
 
     svg.append("rect")
     .attr("x","450")
@@ -288,13 +307,22 @@ svg {
     svg.append("line")
     .attr("x1","500")
     .attr("y1","230")
-    .attr("x2","500")
-    .attr("y2","260")
+    .attr("x2","520")
+    .attr("y2","280")
     .attr("stroke","green")
     .attr("opacity","0.5")
     .attr("stroke-width","2");
 
-    svg.append("text").attr("x", 440).attr("y", 275).text("Samsung Flagship OLED Phones").style("font", "20px Englebert").attr("alignment-baseline","middle")
+    svg.append("line")
+    .attr("x1","520")
+    .attr("y1","280")
+    .attr("x2","800")
+    .attr("y2","280")
+    .attr("stroke","green")
+    .attr("opacity","0.5")
+    .attr("stroke-width","2");
+
+    svg.append("text").attr("x", 540).attr("y", 267).text("Samsung Flagship Galaxy Phones").style("font", "20px Englebert").attr("alignment-baseline","middle")
 });
 
 
