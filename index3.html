@@ -74,8 +74,8 @@ svg {
 
 .grid line {
   stroke: grey;
-  stroke-opacity: 0.3;
-  shape-rendering: crispEdges
+  stroke-opacity: 0.4;
+  shape-rendering: crispEdges;
 }
 .grid path {
   stroke-width: 0;
@@ -99,6 +99,10 @@ select {
   shape-rendering: crispEdges;
 }
 
+.bar {
+  fill: green;
+}
+
 </style>
 
 
@@ -119,7 +123,6 @@ select {
 
             d3.csv("https://jack6353.github.io/page3.csv").then(function(data) {
               data.forEach(function(d) {
-                d.cat = +d.category;
                 d.total = +d.total;
                 d.a18 = +d.age18_29;
                 d.a30 = +d.age30_49;
@@ -136,55 +139,71 @@ select {
                 d.sub = +d.suburban;
                 d.rural = +d.rural;
               });
+            
+
+            
+              var margin = { top: 30, right: 50, bottom: 30, left: 50 },
+              width  = 750 - margin.left - margin.right,
+              height = 450 - margin.top  - margin.bottom;
+
+              // Make x scale
+              var x = d3.scaleBand().domain(data.map(function(d) { return d.category; })).range([0,width]).padding(0.4);
+
+              // Make y scale, the domain will be defined on bar update
+              var y = d3.scaleLinear().domain([0,1]).range([height, 0]);
+
+              var svg = d3.select("#chart").append("svg")
+              .attr("width",  width  + margin.left + margin.right)
+              .attr("height", height + margin.top  + margin.bottom)
+              .append("g")
+              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+              // Make x-axis
+              svg.append("g")
+              .style("font", "20px Englebert")
+              .attr("transform", "translate(0," + height + ")")
+              .call(d3.axisBottom(x));
+
+              var formatPercent = d3.format(".0%");
+
+              svg.append("g")
+              .style("font", "20px Englebert")
+              .call(d3.axisLeft(y).tickFormat(formatPercent));
+
+              // Axis labels
+
+              svg.append("text")
+              .attr("class", "y label")
+              .attr("text-anchor", "end")
+              .attr("x", 0)
+              .attr("dy", "1.25em")
+              .style("font", "20px Englebert")
+              .attr("transform", "rotate(-90)")
+              .text("Ownership Percentage");
+              
+              svg.append("g").selectAll(".bar").data(data)
+              .enter()
+              .append("rect")
+              .attr("class","bar")
+              .attr("x", function(d,i) { return x(d.category); })
+              .attr("width", x.bandwidth())
+              .attr("y", function(d,i) { return y(d.total); })
+              .attr("height", function(d,i) { return height - y(d.total); });
+
+              function make_y_gridlines() {
+                return d3.axisLeft(y)
+                  .ticks(5)
+              }
+
+              svg.append("g")
+                  .attr("class","grid")
+                  .style("stroke-dasharray",("3,3"))
+                  .call(make_y_gridlines()
+                        .tickSize(-width)
+                        .tickFormat(""));
+
+
             });
-
-            
-            var margin = { top: 30, right: 50, bottom: 30, left: 50 },
-            width  = 750 - margin.left - margin.right,
-            height = 450 - margin.top  - margin.bottom;
-
-            // Make x scale
-            var x = d3.scaleBand().domain(phonetype).range([0,width]).padding(0.1);
-
-            // Make y scale, the domain will be defined on bar update
-            var y = d3.scaleLinear().domain([0,1]).range([height, 0]);
-
-            var svg = d3.select("#chart").append("svg")
-            .attr("width",  width  + margin.left + margin.right)
-            .attr("height", height + margin.top  + margin.bottom)
-            .append("g")
-            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-            // Make x-axis
-            svg.append("g")
-            .style("font", "20px Englebert")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.axisBottom(x));
-
-            var formatPercent = d3.format(".0%");
-
-            svg.append("g")
-            .style("font", "20px Englebert")
-            .call(d3.axisLeft(y).tickFormat(formatPercent));
-
-            // Axis labels
-
-            svg.append("text")
-            .attr("class", "y label")
-            .attr("text-anchor", "end")
-            .attr("x", 180)
-            .attr("dy", ".95em")
-            .style("font", "20px Englebert")
-            .text("Ownership Percentage");
-            
-            svg.append("g").selectAll(".bar").data(data)
-            .enter()
-            .append("rect")
-            .attr("x", function(d,i) { return x(phonetype[i]); })
-            .attr("width", 20)
-            .attr("y", function(d,i) { return y(d.total); })
-            .attr("height", function(d,i) { return height - y(d.total); });
-
 
           </script>
 
