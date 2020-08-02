@@ -144,7 +144,7 @@ select {
             height = 450 - margin.top  - margin.bottom;
 
             // Make x scale
-            var x = d3.scaleBand().domain([d.cat]).range([0,width]).padding(0.1);
+            var x = d3.scaleBand().domain(phonetype).range([0,width]).padding(0.1);
 
             // Make y scale, the domain will be defined on bar update
             var y = d3.scaleLinear().domain([0,1]).range([height, 0]);
@@ -180,7 +180,7 @@ select {
             svg.append("g").selectAll(".bar").data(data)
             .enter()
             .append("rect")
-            .attr("x", function(d,i) { return x(d.cat); })
+            .attr("x", function(d,i) { return x(phonetype[i]); })
             .attr("width", 20)
             .attr("y", function(d,i) { return y(d.total); })
             .attr("height", function(d,i) { return height - y(d.total); });
