@@ -56,8 +56,8 @@ p {
   font-size: 30px;
   font-family: Dekko;
   background-color: #CFC;
-  margin-left: 600px;
-  margin-right: 600px;
+  margin-left: 10%;
+  margin-right: 10%;
   color: blue
 }
 
@@ -103,6 +103,25 @@ select {
   fill: green;
 }
 
+#opts {
+  margin: 20px 50% 0px 50%;
+  font: 20px Dekko;
+}
+
+.option {
+  font: 20px Dekko;
+}
+
+#menu {
+  font-size: 30px;
+  font-family: Dekko;
+  margin-left: 40%;
+  margin-right: 40%;
+  color: blue;
+  padding: 10px;
+  margin-bottom: 20px;
+}
+
 </style>
 
 
@@ -112,8 +131,29 @@ select {
       Mobile Facts in USA - Ownership by Other Categories
     </h1>
   </div>
-  <div id="message" class="message-font message">A substantial majority of Americans are cellphone owners across a wide range of demographic groups. By contrast, smartphone ownership exhibits greater variation based on age, household income and educational attainment.</div>
-  <!-- load the d3.js library -->     
+  <div id="message" class="message-font message">A substantial majority of Americans are cellphone owners across a wide range of demographic groups. By contrast, smartphone ownership exhibits greater variation based on age, household income and educational attainment.</div> 
+  
+  <g id="menu">Make your selection here ↓
+    <select id = "opts">
+      <option value="total" selected="selected">Total</option>
+      <option value="age18_29">Age 18-29</option> 
+      <option value="age30_49">Age 20-49</option>
+      <option value="age50_64">Age 50-64</option>
+      <option value="age65">Age >65</option>
+      <option value="lesshighSchool">Education < High School</option>
+      <option value="highSchool">Education High School</option>
+      <option value="college">Education College</option>
+      <option value="income3">Income <$30k</option>
+      <option value="income5">Income $30-50k</option>
+      <option value="income75">Income $50-75k</option>
+      <option value="incomeover75">Income >$75k</option>
+      <option value="urban">Urban</option>
+      <option value="suburban">Suburban</option>
+      <option value="rural">Rural</option>
+    </select>   
+
+  </g>
+  <p id="selected-dropdown"></p>
   <div id="chart"></div>
   
   <script>
@@ -135,73 +175,82 @@ select {
                 d.i5 = +d.income5;
                 d.i75 = +d.income75;
                 d.io75 = +d.incomeover75;
-                d.ur = +d.urband;
+                d.ur = +d.urban;
                 d.sub = +d.suburban;
                 d.rural = +d.rural;
               });
-            
 
-            
-              var margin = { top: 30, right: 50, bottom: 30, left: 50 },
-              width  = 750 - margin.left - margin.right,
-              height = 450 - margin.top  - margin.bottom;
+              function updateBar(selected) {
+                d3.selectAll("svg").remove();
+                var margin = { top: 30, right: 50, bottom: 30, left: 50 },
+                width  = 750 - margin.left - margin.right,
+                height = 350 - margin.top  - margin.bottom;
 
-              // Make x scale
-              var x = d3.scaleBand().domain(data.map(function(d) { return d.category; })).range([0,width]).padding(0.4);
+                // Make x scale
+                var x = d3.scaleBand().domain(data.map(function(d) { return d.category; })).range([0,width]).padding(0.4);
 
-              // Make y scale, the domain will be defined on bar update
-              var y = d3.scaleLinear().domain([0,1]).range([height, 0]);
+                // Make y scale, the domain will be defined on bar update
+                var y = d3.scaleLinear().domain([0,1]).range([height, 0]);
 
-              var svg = d3.select("#chart").append("svg")
-              .attr("width",  width  + margin.left + margin.right)
-              .attr("height", height + margin.top  + margin.bottom)
-              .append("g")
-              .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+                var svg = d3.select("#chart").append("svg")
+                .attr("width",  width  + margin.left + margin.right)
+                .attr("height", height + margin.top  + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-              // Make x-axis
-              svg.append("g")
-              .style("font", "20px Englebert")
-              .attr("transform", "translate(0," + height + ")")
-              .call(d3.axisBottom(x));
+                // Make x-axis
+                svg.append("g")
+                .style("font", "20px Englebert")
+                .attr("transform", "translate(0," + height + ")")
+                .call(d3.axisBottom(x));
 
-              var formatPercent = d3.format(".0%");
+                var formatPercent = d3.format(".0%");
 
-              svg.append("g")
-              .style("font", "20px Englebert")
-              .call(d3.axisLeft(y).tickFormat(formatPercent));
+                svg.append("g")
+                .style("font", "20px Englebert")
+                .call(d3.axisLeft(y).tickFormat(formatPercent));
 
-              // Axis labels
+                // Axis labels
 
-              svg.append("text")
-              .attr("class", "y label")
-              .attr("text-anchor", "end")
-              .attr("x", 0)
-              .attr("dy", "1.25em")
-              .style("font", "20px Englebert")
-              .attr("transform", "rotate(-90)")
-              .text("Ownership Percentage");
+                svg.append("text")
+                .attr("class", "y label")
+                .attr("text-anchor", "end")
+                .attr("x", 0)
+                .attr("dy", "1.25em")
+                .style("font", "20px Englebert")
+                .attr("transform", "rotate(-90)")
+                .text("Ownership Percentage");
+                
+                function make_y_gridlines() {
+                  return d3.axisLeft(y)
+                    .ticks(5)
+                  }
+
+                svg.append("g")
+                    .attr("class","grid")
+                    .style("stroke-dasharray",("3,3"))
+                    .call(make_y_gridlines()
+                          .tickSize(-width)
+                          .tickFormat(""));
+
+                bars = svg.append("g").selectAll(".bar").data(data)
               
-              svg.append("g").selectAll(".bar").data(data)
-              .enter()
-              .append("rect")
-              .attr("class","bar")
-              .attr("x", function(d,i) { return x(d.category); })
-              .attr("width", x.bandwidth())
-              .attr("y", function(d,i) { return y(d.total); })
-              .attr("height", function(d,i) { return height - y(d.total); });
+                bars
+                .enter()
+                .append("rect")
+                .attr("class","bar")
+                .attr("x", function(d,i) { return x(d.category); })
+                .attr("width", x.bandwidth())
+                .attr("y", function(d,i) { return y(d[selected]); })
+                .attr("height", function(d,i) { return height - y(d[selected]); });
+                
+              };
 
-              function make_y_gridlines() {
-                return d3.axisLeft(y)
-                  .ticks(5)
-              }
-
-              svg.append("g")
-                  .attr("class","grid")
-                  .style("stroke-dasharray",("3,3"))
-                  .call(make_y_gridlines()
-                        .tickSize(-width)
-                        .tickFormat(""));
-
+              d3.select("select")
+              .on("change",function(d){
+                var selected = d3.select("#opts").node().value;
+                updateBar(selected);
+                })
 
             });
 
