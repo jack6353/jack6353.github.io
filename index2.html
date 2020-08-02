@@ -106,12 +106,16 @@ svg {
   // define the 1st line
   var valueline = d3.line()
   .x(function(d) { return x(d.date); })
-  .y(function(d) { return y(d.close); });
+  .y(function(d) { return y(d.er); });
 
   // define the 2nd line
   var valueline2 = d3.line()
   .x(function(d) { return x(d.date); })
-  .y(function(d) { return y(d.open); });
+  .y(function(d) { return y(d.tab); });
+
+  var valueline3 = d3.line()
+  .x(function(d) { return x(d.date); })
+  .y(function(d) { return y(d.dl); });
 
   // append the svg obgect to the body of the page
   // appends a 'group' element to 'svg'
@@ -130,8 +134,9 @@ svg {
     // format the data
     data.forEach(function(d) {
       d.date = parseTime(d.date);
-      d.close = +d.cellphone;
-      d.open = +d.smartphone;
+      d.er = +d.e_reader;
+      d.tab = +d.tablet;
+      d.dl = +d.desktop_laptop;
     });
 
     // Scale the range of the data
@@ -150,6 +155,12 @@ svg {
     .attr("class", "line")
     .style("stroke", "green")
     .attr("d", valueline2);
+
+    svg.append("path")
+    .data([data])
+    .attr("class", "line")
+    .style("stroke", "purple")
+    .attr("d", valueline3);
 
     // Add the X Axis
     svg.append("g")
@@ -183,8 +194,10 @@ svg {
 
     svg.append("circle").attr("cx",700).attr("cy",230).attr("r", 8).style("fill", "steelblue")
     svg.append("circle").attr("cx",700).attr("cy",260).attr("r", 8).style("fill", "green")
-    svg.append("text").attr("x", 730).attr("y", 230).text("Cellphone Users").style("font", "20px Englebert").attr("alignment-baseline","middle")
-    svg.append("text").attr("x", 730).attr("y", 260).text("Smartphone Users").style("font", "20px Englebert").attr("alignment-baseline","middle")
+    svg.append("circle").attr("cx",700).attr("cy",290).attr("r", 8).style("fill", "purple")
+    svg.append("text").attr("x", 730).attr("y", 230).text("E-reader").style("font", "20px Englebert").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 730).attr("y", 260).text("Tablet").style("font", "20px Englebert").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 730).attr("y", 290).text("Desktop & Laptop").style("font", "20px Englebert").attr("alignment-baseline","middle")
 
     svg.selectAll("dot")
       .data(data)
@@ -192,7 +205,7 @@ svg {
       .attr("class", "dot")
       .attr("r",5)
       .attr("cx", function(d) { return x(d.date); })
-      .attr("cy", function(d) { return y(d.close); })
+      .attr("cy", function(d) { return y(d.er); })
       .attr("fill", "steelblue")
       .style("opacity", 0.6)
       .style("stroke", "black");
@@ -203,8 +216,19 @@ svg {
       .attr("class", "dot")
       .attr("r",5)
       .attr("cx", function(d) { return x(d.date); })
-      .attr("cy", function(d) { return y(d.open); })
+      .attr("cy", function(d) { return y(d.tab); })
       .attr("fill", "green")
+      .style("opacity", 0.6)
+      .style("stroke", "black");
+
+    svg.selectAll("dot")
+      .data(data)
+    .enter().append("circle")
+      .attr("class", "dot")
+      .attr("r",5)
+      .attr("cx", function(d) { return x(d.date); })
+      .attr("cy", function(d) { return y(d.dl); })
+      .attr("fill", "purple")
       .style("opacity", 0.6)
       .style("stroke", "black");
 
