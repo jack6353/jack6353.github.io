@@ -91,8 +91,7 @@ svg {
       Mobile Facts in USA - Mobile Device Ownership
     </h1>
   </div>
-  <div id="message" class="message-font message">The vast majority of Americans – 97% – now own a mobile phone of some kind. The share of Americans that own smartphones is now 85%. Two leading Smartphone maker (Apple, Samsung) plays a huge role in the increase of ownership of smartphones starting 2009.</div>
-    <!-- load the d3.js library -->     
+  <div id="message" class="message-font message">The vast majority of Americans – 97% – now own a mobile phone of some kind. The share of Americans that own smartphones is now 85%. Two leading Smartphone maker (Apple, Samsung) plays a huge role in the increase of ownership of smartphones starting 2009.</div>    
   <div id="chart"></div>
   <script>
 
@@ -118,9 +117,6 @@ svg {
   .x(function(d) { return x(d.date); })
   .y(function(d) { return y(d.sp); });
 
-  // append the svg obgect to the body of the page
-  // appends a 'group' element to 'svg'
-  // moves the 'group' element to the top left margin
   var svg = d3.select("#chart").append("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)
@@ -223,6 +219,7 @@ svg {
         .ticks(5)
     }
 
+    // Grid lines
     svg.append("g")
       .attr("class","grid")
       .attr("transform","translate(0," + height + ")")
@@ -236,6 +233,8 @@ svg {
         .call(make_y_gridlines()
               .tickSize(-width)
               .tickFormat(""));
+    
+    // Annotations
     svg.append("line")
     .attr("x1","307")
     .attr("y1","243")

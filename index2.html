@@ -91,8 +91,7 @@ svg {
       Mobile Facts in USA - Ownership of Other Devices
     </h1>
   </div>
-  <div id="message" class="message-font message">Along with mobile phones, Americans own a range of other information devices. Nearly three-quarters of U.S. adults now own desktop or laptop computers, while roughly half now own tablet computers and roughly 15% own e-reader devices. Tablet & E-reader is having reverse trend as tablet has the adventage of functionality and also the price became more affordable year-over-year.</div>
-    <!-- load the d3.js library -->     
+  <div id="message" class="message-font message">Along with mobile phones, Americans own a range of other information devices. Nearly three-quarters of U.S. adults now own desktop or laptop computers, while roughly half now own tablet computers and roughly 15% own e-reader devices. Tablet & E-reader is having reverse trend as tablet has the adventage of functionality and also the price became more affordable year-over-year.</div>    
   <div id="chart"></div>
   <script>
 
@@ -118,13 +117,11 @@ svg {
   .x(function(d) { return x(d.date); })
   .y(function(d) { return y(d.tab); });
 
+  // define the 3rd line
   var valueline3 = d3.line()
   .x(function(d) { return x(d.date); })
   .y(function(d) { return y(d.dl); });
 
-  // append the svg obgect to the body of the page
-  // appends a 'group' element to 'svg'
-  // moves the 'group' element to the top left margin
   var svg = d3.select("#chart").append("svg")
   .attr("width", width + margin.left + margin.right)
   .attr("height", height + margin.top + margin.bottom)

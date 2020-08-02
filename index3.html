@@ -145,7 +145,6 @@ select {
   <div id="chart"></div>
   
   <script>
-            // Load and munge data, then make the visualization.
             var fileName = "https://jack6353.github.io/page3.csv";
             var phonetype = ["Any Phones", "Smartphone", "Cellphone"];
 
@@ -180,7 +179,7 @@ select {
                 // Make x scale
                 var x = d3.scaleBand().domain(data.map(function(d) { return d.category; })).range([0,width]).padding(0.4);
 
-                // Make y scale, the domain will be defined on bar update
+                // Make y scale
                 var y = d3.scaleLinear().domain([0,1]).range([height, 0]);
 
                 var svg = d3.select("#chart").append("svg")
@@ -278,7 +277,7 @@ select {
                 // Make x scale
                 var x = d3.scaleBand().domain(data.map(function(d) { return d.category; })).range([0,width]).padding(0.4);
 
-                // Make y scale, the domain will be defined on bar update
+                // Make y scale
                 var y = d3.scaleLinear().domain([0,1]).range([height, 0]);
 
                 var svg = d3.select("#chart").append("svg")
