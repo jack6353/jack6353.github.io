@@ -147,13 +147,12 @@ svg {
     x.domain(d3.extent(data, function(d) { return d.date; }));
     y.domain([0, 1]);
 
-    // Add the valueline path.
+    // Add paths for line chart.
     svg.append("path")
     .data([data])
     .attr("class", "line")
     .attr("d", valueline);
 
-    // Add the valueline2 path.
     svg.append("path")
     .data([data])
     .attr("class", "line")
@@ -172,7 +171,6 @@ svg {
     .attr("transform", "translate(0," + height + ")")
     .call(d3.axisBottom(x));
 
-
     var formatPercent = d3.format(".0%");
 
     // Add the Y Axis
@@ -180,6 +178,7 @@ svg {
     .style("font", "20px Englebert")
     .call(d3.axisLeft(y).tickFormat(formatPercent));
 
+    // Axis labels
     svg.append("text")
     .attr("class", "x label")
     .attr("text-anchor", "end")
@@ -196,6 +195,7 @@ svg {
     .style("font", "20px Englebert")
     .text("Ownership Percentage");
 
+    // Insert legends
     svg.append("circle").attr("cx",700).attr("cy",20).attr("r", 8).style("fill", "steelblue")
     svg.append("circle").attr("cx",700).attr("cy",40).attr("r", 8).style("fill", "green")
     svg.append("circle").attr("cx",700).attr("cy",60).attr("r", 8).style("fill", "purple")
@@ -203,6 +203,7 @@ svg {
     svg.append("text").attr("x", 730).attr("y", 40).text("Tablet").style("font", "20px Englebert").attr("alignment-baseline","middle")
     svg.append("text").attr("x", 730).attr("y", 60).text("Desktop & Laptop").style("font", "20px Englebert").attr("alignment-baseline","middle")
 
+    // Draw data points on line chart
     svg.selectAll("dot")
       .data(data)
     .enter().append("circle")
@@ -236,7 +237,7 @@ svg {
       .style("opacity", 0.6)
       .style("stroke", "black");
 
-
+    // Make grid lines
     function make_x_gridlines() {
     return d3.axisBottom(x)
       .ticks(8)
@@ -260,6 +261,7 @@ svg {
               .tickSize(-width)
               .tickFormat(""));
 
+    // Annotations
     svg.append("rect")
     .attr("x","180")
     .attr("y","30")
