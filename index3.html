@@ -119,6 +119,11 @@ select {
   <g id="menu"> ↓ Make your selection here
     <select id = "opts">
       <option value="total" selected="selected">Overall</option>
+      <option value="men">Men</option> 
+      <option value="women">Women</option>
+      <option value="white">White</option>
+      <option value="black">Black</option>
+      <option value="hispanic">Hispanic</option>
       <option value="age18_29">Age 18-29</option> 
       <option value="age30_49">Age 20-49</option>
       <option value="age50_64">Age 50-64</option>
@@ -161,6 +166,11 @@ select {
                 d.ur = +d.urban;
                 d.sub = +d.suburban;
                 d.rural = +d.rural;
+                d.men = +d.men;
+                d.women = +d.women;
+                d.white = d.white;
+                d.black = +d.black;
+                d.hispanic = +d.hispanic;
               });
 
                 var margin = { top: 30, right: 50, bottom: 30, left: 50 },
