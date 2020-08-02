@@ -1,92 +1,241 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
+<html>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link href="https://fonts.googleapis.com/css?family=Chicle|Dekko|Englebert|Indie+Flower|Rhodium+Libre|Sail|Yatra+One" rel="stylesheet">
+<script src="https://d3js.org/d3.v5.min.js"></script>
 
 <style> /* set the CSS */
+
+.header-text {
+  text-align: center;
+  border: 3px solid green;
+}
 
 .line {
   fill: none;
   stroke: steelblue;
-  stroke-width: 2px;
+  stroke-width: 4px;
+}
+
+.title-font {
+  font-family: Dekko;
+  font-size: 50px;
+  margin: 10px;
+}
+
+.message-font {
+  margin: 30px 50px 50px 50px;
+  font-family: Rhodium Libre;
+  font-size: 20px;
+  padding: 20px;
+  background-color: #EEE;
+  text-align: left;
+  
+}
+
+.button-font {
+  font-family: Chicle;
+  font-size: 25px;
+  margin: 0px;
+  text-align: center;
+}
+
+.button-font:hover {
+  background-color: #FCC;
+  border-color: #F00;
+  
+}
+
+@keyframes fadeIn {
+ 0% {opacity: 0;}
+ 100% {opacity: 1;}
+}
+
+p {
+  font-size: 30px;
+  font-family: Dekko; 
+}
+
+.text-center {
+  margin: 30px 50px 0 50px;
+  text-align: center;
+}
+
+svg {
+  display: block;
+  margin: auto;
+
+}
+
+.grid line {
+  stroke: lightgrey;
+  stroke-opacity: 0.6;
+  shape-rendering: crispEdges
+}
+.grid path {
+  stroke-width: 0;
 }
 
 </style>
-<div id="chart" align="center"></div>
-<body>
 
-  <!-- load the d3.js library -->     
-  <script src="https://d3js.org/d3.v5.min.js"></script>
+
+<body>
+  <div class="header-text">
+    <h1 class="title-font">
+      Ownership Study of Mobile Phones
+    </h1>
+  </div>
+  <div id="message" class="message-font message">The vast majority of Americans – 96% – now own a cellphone of some kind. The share of Americans that own smartphones is now 81%, up from just 35% in Pew Research Center’s first survey of smartphone ownership conducted in 2011. Along with mobile phones, Americans own a range of other information devices. Nearly three-quarters of U.S. adults now own desktop or laptop computers, while roughly half now own tablet computers and roughly half own e-reader devices.</div>
+  
+    <!-- load the d3.js library -->     
+
   <script>
 
-// set the dimensions and margins of the graph
-var margin = {top: 20, right: 20, bottom: 30, left: 50},
-width = 960 - margin.left - margin.right,
-height = 400 - margin.top - margin.bottom;
+  // set the dimensions and margins of the graph
+  var margin = {top: 20, right: 20, bottom: 30, left: 50},
+  width = 960 - margin.left - margin.right,
+  height = 400 - margin.top - margin.bottom;
 
-// parse the date / time
-var parseTime = d3.timeParse("%m/%d/%y");
+  // parse the date / time
+  var parseTime = d3.timeParse("%m/%d/%y");
 
-// set the ranges
-var x = d3.scaleTime().range([0, width]);
-var y = d3.scaleLinear().range([height, 0]);
+  // set the ranges
+  var x = d3.scaleTime().range([0, width]);
+  var y = d3.scaleLinear().range([height, 0]);
 
-// define the 1st line
-var valueline = d3.line()
-.x(function(d) { return x(d.date); })
-.y(function(d) { return y(d.close); });
+  // define the 1st line
+  var valueline = d3.line()
+  .x(function(d) { return x(d.date); })
+  .y(function(d) { return y(d.close); });
 
-// define the 2nd line
-var valueline2 = d3.line()
-.x(function(d) { return x(d.date); })
-.y(function(d) { return y(d.open); });
+  // define the 2nd line
+  var valueline2 = d3.line()
+  .x(function(d) { return x(d.date); })
+  .y(function(d) { return y(d.open); });
 
-// append the svg obgect to the body of the page
-// appends a 'group' element to 'svg'
-// moves the 'group' element to the top left margin
-var svg = d3.select("#chart").append("svg")
-.attr("width", width + margin.left + margin.right)
-.attr("height", height + margin.top + margin.bottom)
-.append("g")
-.attr("transform",
-  "translate(" + margin.left + "," + margin.top + ")");
+  // append the svg obgect to the body of the page
+  // appends a 'group' element to 'svg'
+  // moves the 'group' element to the top left margin
+  var svg = d3.select("body").append("svg")
+  .attr("width", width + margin.left + margin.right)
+  .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+  .attr("transform",
+    "translate(" + margin.left + "," + margin.top + ")");
 
-// Get the data
-d3.csv("https://jack6353.github.io/ownershipovertime.csv").then(function(data) {
+  // Get the data
+  d3.csv("https://jack6353.github.io/ownershipovertime.csv").then(function(data) {
 
-  // format the data
-  data.forEach(function(d) {
-    d.date = parseTime(d.date);
-    d.close = +d.cellphone;
-    d.open = +d.smartphone;
-  });
+    // format the data
+    data.forEach(function(d) {
+      d.date = parseTime(d.date);
+      d.close = +d.cellphone;
+      d.open = +d.smartphone;
+    });
 
-  // Scale the range of the data
-  x.domain(d3.extent(data, function(d) { return d.date; }));
-  y.domain([0, d3.max(data, function(d) {
-    return Math.max(d.close, d.open); })]);
+    // Scale the range of the data
+    x.domain(d3.extent(data, function(d) { return d.date; }));
+    y.domain([0, 1]);
 
-  // Add the valueline path.
-  svg.append("path")
-  .data([data])
-  .attr("class", "line")
-  .attr("d", valueline);
+    // Add the valueline path.
+    svg.append("path")
+    .data([data])
+    .attr("class", "line")
+    .attr("d", valueline);
 
-  // Add the valueline2 path.
-  svg.append("path")
-  .data([data])
-  .attr("class", "line")
-  .style("stroke", "red")
-  .attr("d", valueline2);
+    // Add the valueline2 path.
+    svg.append("path")
+    .data([data])
+    .attr("class", "line")
+    .style("stroke", "red")
+    .attr("d", valueline2);
 
-  // Add the X Axis
-  svg.append("g")
-  .attr("transform", "translate(0," + height + ")")
-  .call(d3.axisBottom(x));
+    // Add the X Axis
+    svg.append("g")
+    .style("font", "20px Englebert")
+    .attr("transform", "translate(0," + height + ")")
+    .call(d3.axisBottom(x));
 
-  // Add the Y Axis
-  svg.append("g")
-  .call(d3.axisLeft(y));
 
+    var formatPercent = d3.format(".0%");
+
+    // Add the Y Axis
+    svg.append("g")
+    .style("font", "20px Englebert")
+    .call(d3.axisLeft(y).tickFormat(formatPercent));
+
+    svg.append("text")
+    .attr("class", "x label")
+    .attr("text-anchor", "end")
+    .attr("x", width)
+    .attr("y", height - 6)
+    .style("font", "20px Englebert")
+    .text("Year");
+
+    svg.append("text")
+    .attr("class", "y label")
+    .attr("text-anchor", "end")
+    .attr("x", 180)
+    .attr("dy", ".75em")
+    .style("font", "20px Englebert")
+    .text("Ownership Percentage");
+
+    svg.append("circle").attr("cx",700).attr("cy",230).attr("r", 6).style("fill", "steelblue")
+    svg.append("circle").attr("cx",700).attr("cy",260).attr("r", 6).style("fill", "red")
+    svg.append("text").attr("x", 730).attr("y", 230).text("Cellphone Users").style("font", "20px Englebert").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 730).attr("y", 260).text("Smartphone Users").style("font", "20px Englebert").attr("alignment-baseline","middle")
+
+    svg.selectAll("dot")
+      .data(data)
+    .enter().append("circle")
+      .attr("class", "dot")
+      .attr("r",5)
+      .attr("cx", function(d) { return x(d.date); })
+      .attr("cy", function(d) { return y(d.close); });
+
+    svg.selectAll("dot")
+      .data(data)
+    .enter().append("circle")
+      .attr("class", "dot")
+      .attr("r",5)
+      .attr("cx", function(d) { return x(d.date); })
+      .attr("cy", function(d) { return y(d.open); });
+
+
+    function make_x_gridlines() {
+    return d3.axisBottom(x)
+      .ticks(8)
+    }
+    function make_y_gridlines() {
+      return d3.axisLeft(y)
+        .ticks(5)
+    }
+
+    svg.append("g")
+      .attr("class","grid")
+      .attr("transform","translate(0," + height + ")")
+      .style("stroke-dasharray",("3,3"))
+      .call(make_x_gridlines()
+            .tickSize(-height)
+            .tickFormat("")
+         )
+    svg.append("g")
+        .attr("class","grid")
+        .style("stroke-dasharray",("3,3"))
+        .call(make_y_gridlines()
+              .tickSize(-width)
+              .tickFormat("")
+           )
 });
 
-</script>
+
+  </script>
+
+  <div class="text-center">
+    <p>What about the income impact ownership of mobile phones?</p>
+    <button id="getMessage" class="button-font">
+          Click Here!
+  </button>
+  </div>
 </body>
+</html>
