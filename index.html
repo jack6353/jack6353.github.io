@@ -182,10 +182,11 @@ svg {
     .style("font", "20px Englebert")
     .text("Ownership Percentage");
 
-    svg.append("circle").attr("cx",700).attr("cy",170).attr("r", 6).style("fill", "steelblue")
-    svg.append("circle").attr("cx",700).attr("cy",200).attr("r", 6).style("fill", "green")
-    svg.append("text").attr("x", 730).attr("y", 170).text("Mobile Phones").style("font", "20px Englebert").attr("alignment-baseline","middle")
-    svg.append("text").attr("x", 730).attr("y", 200).text("Smartphones").style("font", "20px Englebert").attr("alignment-baseline","middle")
+    // Legends
+    svg.append("circle").attr("cx",740).attr("cy",170).attr("r", 6).style("fill", "steelblue")
+    svg.append("circle").attr("cx",740).attr("cy",200).attr("r", 6).style("fill", "green")
+    svg.append("text").attr("x", 770).attr("y", 170).text("Mobile Phones").style("font", "20px Englebert").attr("alignment-baseline","middle")
+    svg.append("text").attr("x", 770).attr("y", 200).text("Smartphones").style("font", "20px Englebert").attr("alignment-baseline","middle")
 
     svg.selectAll("dot")
       .data(data)
