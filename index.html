@@ -20,14 +20,14 @@
 
 .title-font {
   font-family: Rhodium Libre;
-  font-size: 35px;
+  font-size: 30px;
   margin: 10px;
 }
 
 .message-font {
-  margin: 30px 50px 50px 50px;
+  margin: 10px 50px 0px 50px;
   font-family: Rhodium Libre;
-  font-size: 20px;
+  font-size: 15px;
   padding: 20px;
   background-color: #EEE;
   text-align: left;
@@ -36,8 +36,8 @@
 
 .button-font {
   font-family: Rhodium Libre;
-  font-size: 20px;
-  margin: 0px;
+  font-size: 15px;
+  margin: 0 0 30px 0;
   text-align: center;
   background-color: #EEE;
 }
@@ -54,7 +54,7 @@
 }
 
 p {
-  font-size: 30px;
+  font-size: 20px;
   background-color: #CFC;
   margin-left: 10px;
   margin-right: 10px;
@@ -139,6 +139,9 @@ svg {
     x.domain(d3.extent(data, function(d) { return d.date; }));
     y.domain([0, 1]);
 
+    var linespeed = 3000;
+    var otherspeed = 5000;
+
     // Add the valueline path.
     var path1 = svg.append("path")
     .data([data])
@@ -153,7 +156,7 @@ svg {
       .attr("stroke-dasharray", totalLength + " " + totalLength)
       .attr("stroke-dashoffset", totalLength)
       .transition() // Call Transition Method
-      .duration(1000) // Set Duration timing (ms)
+      .duration(linespeed) // Set Duration timing (ms)
       .ease(d3.easeLinear) // Set Easing option
       .attr("stroke-dashoffset", 0); // Set final value of dash-offset for transition
 
@@ -172,7 +175,7 @@ svg {
       .attr("stroke-dasharray", totalLength + " " + totalLength)
       .attr("stroke-dashoffset", totalLength)
       .transition() // Call Transition Method
-      .duration(1000) // Set Duration timing (ms)
+      .duration(linespeed) // Set Duration timing (ms)
       .ease(d3.easeLinear) // Set Easing option
       .attr("stroke-dashoffset", 0); // Set final value of dash-offset for transition
 
@@ -223,7 +226,7 @@ svg {
       .style("opacity", 0)
       .style("stroke", "black")
       .transition()
-      .duration(3000)
+      .duration(otherspeed)
       .style("opacity", 0.6);
 
     svg.selectAll("dot")
@@ -237,7 +240,7 @@ svg {
       .style("opacity", 0)
       .style("stroke", "black")
       .transition()
-      .duration(3000)
+      .duration(otherspeed)
       .style("opacity", 0.6);
 
 
@@ -275,7 +278,7 @@ svg {
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "0.6");
 
 
@@ -288,7 +291,7 @@ svg {
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "0.6");
 
     svg.append("circle")
@@ -300,14 +303,14 @@ svg {
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "0.3");
 
     svg.append("text").attr("x", 35).attr("y", 209).text("Apple iPhone First Appearance").style("font", "20px Englebert").attr("alignment-baseline","middle")
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "1");
 
     svg.append("line")
@@ -319,7 +322,7 @@ svg {
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "0.6");
 
     svg.append("line")
@@ -331,7 +334,7 @@ svg {
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "0.6");
 
     svg.append("circle")
@@ -342,14 +345,14 @@ svg {
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "0.3");
 
     svg.append("text").attr("x", 407).attr("y", 83).text("Impact of 2008 Financial Crisis").style("font", "20px Englebert").attr("alignment-baseline","middle")
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "1");
 
     svg.append("rect")
@@ -361,7 +364,7 @@ svg {
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "0.25");
 
     svg.append("line")
@@ -373,7 +376,7 @@ svg {
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "0.5");
 
     svg.append("line")
@@ -385,14 +388,14 @@ svg {
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "0.5");
 
     svg.append("text").attr("x", 540).attr("y", 267).text("Samsung Flagship Galaxy Phones").style("font", "20px Englebert").attr("alignment-baseline","middle")
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "1");
 });
 
@@ -405,7 +408,7 @@ svg {
           Click Here to Learn More!
   </button>
   </div>
-  <script type="text/javascript">
+  <script>
     document.getElementById("getMessage").onclick = function () {
         location.href = "index2.html";
     };

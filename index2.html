@@ -20,14 +20,14 @@
 
 .title-font {
   font-family: Rhodium Libre;
-  font-size: 35px;
+  font-size: 30px;
   margin: 10px;
 }
 
 .message-font {
-  margin: 30px 50px 50px 50px;
+  margin: 10px 50px 0px 50px;
   font-family: Rhodium Libre;
-  font-size: 20px;
+  font-size: 15px;
   padding: 20px;
   background-color: #EEE;
   text-align: left;
@@ -36,8 +36,8 @@
 
 .button-font {
   font-family: Rhodium Libre;
-  font-size: 20px;
-  margin: 0px;
+  font-size: 15px;
+  margin: 0 0 30px 0;
   text-align: center;
   background-color: #EEE;
 }
@@ -54,7 +54,7 @@
 }
 
 p {
-  font-size: 30px;
+  font-size: 20px;
   background-color: #CFC;
   margin-left: 10px;
   margin-right: 10px;
@@ -106,6 +106,9 @@ svg {
   // set the ranges
   var x = d3.scaleTime().range([0, width]);
   var y = d3.scaleLinear().range([height, 0]);
+
+  var linespeed = 3000;
+  var otherspeed = 5000;
 
   // define the 1st line
   var valueline = d3.line()
@@ -160,7 +163,7 @@ svg {
       .attr("stroke-dasharray", totalLength + " " + totalLength)
       .attr("stroke-dashoffset", totalLength)
       .transition() // Call Transition Method
-      .duration(1000) // Set Duration timing (ms)
+      .duration(linespeed) // Set Duration timing (ms)
       .ease(d3.easeLinear) // Set Easing option
       .attr("stroke-dashoffset", 0); // Set final value of dash-offset for transition
 
@@ -178,7 +181,7 @@ svg {
       .attr("stroke-dasharray", totalLength + " " + totalLength)
       .attr("stroke-dashoffset", totalLength)
       .transition() // Call Transition Method
-      .duration(1000) // Set Duration timing (ms)
+      .duration(linespeed) // Set Duration timing (ms)
       .ease(d3.easeLinear) // Set Easing option
       .attr("stroke-dashoffset", 0); // Set final value of dash-offset for transition
 
@@ -196,7 +199,7 @@ svg {
       .attr("stroke-dasharray", totalLength + " " + totalLength)
       .attr("stroke-dashoffset", totalLength)
       .transition() // Call Transition Method
-      .duration(1000) // Set Duration timing (ms)
+      .duration(linespeed) // Set Duration timing (ms)
       .ease(d3.easeLinear) // Set Easing option
       .attr("stroke-dashoffset", 0); // Set final value of dash-offset for transition
 
@@ -250,7 +253,7 @@ svg {
       .style("opacity", 0)
       .style("stroke", "black")
       .transition()
-      .duration(3000)
+      .duration(otherspeed)
       .style("opacity", 0.6);
 
     svg.selectAll("dot")
@@ -264,7 +267,7 @@ svg {
       .style("opacity", 0)
       .style("stroke", "black")
       .transition()
-      .duration(3000)
+      .duration(otherspeed)
       .style("opacity", 0.6);
 
     svg.selectAll("dot")
@@ -278,7 +281,7 @@ svg {
       .style("opacity", 0)
       .style("stroke", "black")
       .transition()
-      .duration(3000)
+      .duration(otherspeed)
       .style("opacity", 0.6);
 
     // Make grid lines
@@ -316,7 +319,7 @@ svg {
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "0.15");
 
 
@@ -329,7 +332,7 @@ svg {
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "0.5");
 
     svg.append("line")
@@ -341,21 +344,21 @@ svg {
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "0.5");
 
     svg.append("text").attr("x", 20).attr("y", 153).text("Regression due to increase of Tablet users").style("font", "20px Englebert").attr("alignment-baseline","middle")
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "1");
 
     svg.append("text").attr("x", 520).attr("y", 233).text("Reverse trend of Tablet vs E-readers").style("font", "20px Englebert").attr("alignment-baseline","middle")
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "1");
 
     svg.append("line")
@@ -367,7 +370,7 @@ svg {
     .attr("opacity","0")
     .attr("stroke-width","2")
     .transition()
-    .duration(3000)
+    .duration(otherspeed)
     .style("opacity", "0.5");
 
 });
@@ -381,7 +384,7 @@ svg {
           Click Here to Learn More!
   </button>
   </div>
-  <script type="text/javascript">
+  <script>
     document.getElementById("getMessage").onclick = function () {
         location.href = "index3.html";
     };
