@@ -140,17 +140,41 @@ svg {
     y.domain([0, 1]);
 
     // Add the valueline path.
-    svg.append("path")
+    var path1 = svg.append("path")
     .data([data])
     .attr("class", "line")
     .attr("d", valueline);
 
+    // Variable to Hold Total Length
+    var totalLength = path1.node().getTotalLength();
+
+    // Set Properties of Dash Array and Dash Offset and initiate Transition
+    path1
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition() // Call Transition Method
+      .duration(1000) // Set Duration timing (ms)
+      .ease(d3.easeLinear) // Set Easing option
+      .attr("stroke-dashoffset", 0); // Set final value of dash-offset for transition
+
     // Add the valueline2 path.
-    svg.append("path")
+    var path2 = svg.append("path")
     .data([data])
     .attr("class", "line")
     .style("stroke", "green")
     .attr("d", valueline2);
+
+    // Variable to Hold Total Length
+    var totalLength = path2.node().getTotalLength();
+
+    // Set Properties of Dash Array and Dash Offset and initiate Transition
+    path2
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition() // Call Transition Method
+      .duration(1000) // Set Duration timing (ms)
+      .ease(d3.easeLinear) // Set Easing option
+      .attr("stroke-dashoffset", 0); // Set final value of dash-offset for transition
 
     // Add the X Axis
     svg.append("g")
@@ -196,8 +220,11 @@ svg {
       .attr("cx", function(d) { return x(d.date); })
       .attr("cy", function(d) { return y(d.cp); })
       .attr("fill", "steelblue")
-      .style("opacity", 0.6)
-      .style("stroke", "black");
+      .style("opacity", 0)
+      .style("stroke", "black")
+      .transition()
+      .duration(3000)
+      .style("opacity", 0.6);
 
     svg.selectAll("dot")
       .data(data)
@@ -207,8 +234,11 @@ svg {
       .attr("cx", function(d) { return x(d.date); })
       .attr("cy", function(d) { return y(d.sp); })
       .attr("fill", "green")
-      .style("opacity", 0.6)
-      .style("stroke", "black");
+      .style("opacity", 0)
+      .style("stroke", "black")
+      .transition()
+      .duration(3000)
+      .style("opacity", 0.6);
 
 
     function make_x_gridlines() {
@@ -242,8 +272,12 @@ svg {
     .attr("x2","280")
     .attr("y2","223")
     .attr("stroke","green")
-    .attr("opacity","0.5")
-    .attr("stroke-width","2");
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "0.6");
+
 
     svg.append("line")
     .attr("x1","280")
@@ -251,19 +285,30 @@ svg {
     .attr("x2","25")
     .attr("y2","223")
     .attr("stroke","green")
-    .attr("opacity","0.5")
-    .attr("stroke-width","2");
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "0.6");
 
     svg.append("circle")
     .attr("cx","337")
     .attr("cy","283")
     .attr("r","50")
     .attr("fill","green")
-    .attr("opacity","0.3")
     .attr("stroke","green")
-    .attr("stroke-width","2");
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "0.3");
 
-    svg.append("text").attr("x", 35).attr("y", 209).text("Apple iPhone First Appearance").style("font", "20px Englebert").attr("alignment-baseline","middle");
+    svg.append("text").attr("x", 35).attr("y", 209).text("Apple iPhone First Appearance").style("font", "20px Englebert").attr("alignment-baseline","middle")
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "1");
 
     svg.append("line")
     .attr("x1","367")
@@ -271,8 +316,11 @@ svg {
     .attr("x2","397")
     .attr("y2","95")
     .attr("stroke","steelblue")
-    .attr("opacity","0.5")
-    .attr("stroke-width","2");
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "0.6");
 
     svg.append("line")
     .attr("x1","397")
@@ -280,19 +328,29 @@ svg {
     .attr("x2","657")
     .attr("y2","95")
     .attr("stroke","steelblue")
-    .attr("opacity","0.5")
-    .attr("stroke-width","2");
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "0.6");
 
     svg.append("circle")
     .attr("cx","347")
     .attr("cy","55")
     .attr("r","30")
     .attr("fill","steelblue")
-    .attr("opacity","0.3")
-    .attr("stroke","steelblue")
-    .attr("stroke-width","2");
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "0.3");
 
-    svg.append("text").attr("x", 407).attr("y", 83).text("Impact of 2008 Financial Crisis").style("font", "20px Englebert").attr("alignment-baseline","middle");
+    svg.append("text").attr("x", 407).attr("y", 83).text("Impact of 2008 Financial Crisis").style("font", "20px Englebert").attr("alignment-baseline","middle")
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "1");
 
     svg.append("rect")
     .attr("x","450")
@@ -300,9 +358,11 @@ svg {
     .attr("width","130")
     .attr("height","100")
     .attr("fill","green")
-    .attr("opacity","0.15")
-    .attr("stroke","green")
-    .attr("stroke-width","2");
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "0.15");
 
     svg.append("line")
     .attr("x1","500")
@@ -310,8 +370,11 @@ svg {
     .attr("x2","520")
     .attr("y2","280")
     .attr("stroke","green")
-    .attr("opacity","0.5")
-    .attr("stroke-width","2");
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "0.5");
 
     svg.append("line")
     .attr("x1","520")
@@ -319,10 +382,18 @@ svg {
     .attr("x2","800")
     .attr("y2","280")
     .attr("stroke","green")
-    .attr("opacity","0.5")
-    .attr("stroke-width","2");
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "0.5");
 
     svg.append("text").attr("x", 540).attr("y", 267).text("Samsung Flagship Galaxy Phones").style("font", "20px Englebert").attr("alignment-baseline","middle")
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "1");
 });
 
 

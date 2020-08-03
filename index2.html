@@ -146,23 +146,59 @@ svg {
     y.domain([0, 1]);
 
     // Add paths for line chart.
-    svg.append("path")
+    var path1 = svg.append("path")
     .data([data])
     .attr("class", "line")
     .style("stroke", "#199")
     .attr("d", valueline);
 
-    svg.append("path")
+    // Variable to Hold Total Length
+    var totalLength = path1.node().getTotalLength();
+
+    // Set Properties of Dash Array and Dash Offset and initiate Transition
+    path1
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition() // Call Transition Method
+      .duration(1000) // Set Duration timing (ms)
+      .ease(d3.easeLinear) // Set Easing option
+      .attr("stroke-dashoffset", 0); // Set final value of dash-offset for transition
+
+    var path2 = svg.append("path")
     .data([data])
     .attr("class", "line")
     .style("stroke", "771")
     .attr("d", valueline2);
 
-    svg.append("path")
+    // Variable to Hold Total Length
+    var totalLength = path2.node().getTotalLength();
+
+    // Set Properties of Dash Array and Dash Offset and initiate Transition
+    path2
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition() // Call Transition Method
+      .duration(1000) // Set Duration timing (ms)
+      .ease(d3.easeLinear) // Set Easing option
+      .attr("stroke-dashoffset", 0); // Set final value of dash-offset for transition
+
+    var path3 = svg.append("path")
     .data([data])
     .attr("class", "line")
     .style("stroke", "purple")
     .attr("d", valueline3);
+
+    // Variable to Hold Total Length
+    var totalLength = path3.node().getTotalLength();
+
+    // Set Properties of Dash Array and Dash Offset and initiate Transition
+    path3
+      .attr("stroke-dasharray", totalLength + " " + totalLength)
+      .attr("stroke-dashoffset", totalLength)
+      .transition() // Call Transition Method
+      .duration(1000) // Set Duration timing (ms)
+      .ease(d3.easeLinear) // Set Easing option
+      .attr("stroke-dashoffset", 0); // Set final value of dash-offset for transition
 
     // Add the X Axis
     svg.append("g")
@@ -211,8 +247,11 @@ svg {
       .attr("cx", function(d) { return x(d.date); })
       .attr("cy", function(d) { return y(d.er); })
       .attr("fill", "#199")
-      .style("opacity", 0.6)
-      .style("stroke", "black");
+      .style("opacity", 0)
+      .style("stroke", "black")
+      .transition()
+      .duration(3000)
+      .style("opacity", 0.6);
 
     svg.selectAll("dot")
       .data(data)
@@ -222,8 +261,11 @@ svg {
       .attr("cx", function(d) { return x(d.date); })
       .attr("cy", function(d) { return y(d.tab); })
       .attr("fill", "#771")
-      .style("opacity", 0.6)
-      .style("stroke", "black");
+      .style("opacity", 0)
+      .style("stroke", "black")
+      .transition()
+      .duration(3000)
+      .style("opacity", 0.6);
 
     svg.selectAll("dot")
       .data(data)
@@ -233,8 +275,11 @@ svg {
       .attr("cx", function(d) { return x(d.date); })
       .attr("cy", function(d) { return y(d.dl); })
       .attr("fill", "purple")
-      .style("opacity", 0.6)
-      .style("stroke", "black");
+      .style("opacity", 0)
+      .style("stroke", "black")
+      .transition()
+      .duration(3000)
+      .style("opacity", 0.6);
 
     // Make grid lines
     function make_x_gridlines() {
@@ -267,9 +312,13 @@ svg {
     .attr("width","250")
     .attr("height","100")
     .attr("fill","purple")
-    .attr("opacity","0.15")
     .attr("stroke","purple")
-    .attr("stroke-width","2");
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "0.15");
+
 
     svg.append("line")
     .attr("x1","380")
@@ -277,8 +326,11 @@ svg {
     .attr("x2","360")
     .attr("y2","165")
     .attr("stroke","purple")
-    .attr("opacity","0.5")
-    .attr("stroke-width","2");
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "0.5");
 
     svg.append("line")
     .attr("x1","360")
@@ -286,11 +338,25 @@ svg {
     .attr("x2","10")
     .attr("y2","165")
     .attr("stroke","purple")
-    .attr("opacity","0.5")
-    .attr("stroke-width","2");
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "0.5");
 
-    svg.append("text").attr("x", 20).attr("y", 153).text("Regression due to increase of Tablet users").style("font", "20px Englebert").attr("alignment-baseline","middle");
-    svg.append("text").attr("x", 520).attr("y", 233).text("Reverse trend of Tablet vs E-readers").style("font", "20px Englebert").attr("alignment-baseline","middle");
+    svg.append("text").attr("x", 20).attr("y", 153).text("Regression due to increase of Tablet users").style("font", "20px Englebert").attr("alignment-baseline","middle")
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "1");
+
+    svg.append("text").attr("x", 520).attr("y", 233).text("Reverse trend of Tablet vs E-readers").style("font", "20px Englebert").attr("alignment-baseline","middle")
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "1");
 
     svg.append("line")
     .attr("x1","510")
@@ -298,8 +364,11 @@ svg {
     .attr("x2","815")
     .attr("y2","243")
     .attr("stroke","black")
-    .attr("opacity","0.5")
-    .attr("stroke-width","2");
+    .attr("opacity","0")
+    .attr("stroke-width","2")
+    .transition()
+    .duration(3000)
+    .style("opacity", "0.5");
 
 });
 
